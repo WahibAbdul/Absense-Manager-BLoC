@@ -28,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
             : state.status == AbsenceStateStatus.failure && state.absences.isEmpty
                 ? const Center(child: Text("Failed to fetch absences. Please try again."))
                 : ListView.separated(
+                    padding: const EdgeInsets.all(16),
                     controller: _scrollController,
                     itemBuilder: (context, index) {
                       if (index >= state.absences.length) {
@@ -35,9 +36,7 @@ class _HomeViewState extends State<HomeView> {
                       }
                       return AbsenceItem(absence: state.absences[index]);
                     },
-                    separatorBuilder: (context, index) {
-                      return index <= state.absences.length - 1 ? const Divider() : const SizedBox.shrink();
-                    },
+                    separatorBuilder: (context, index) => const SizedBox(height: 16),
                     itemCount: state.hasReachedMax ? state.absences.length : state.absences.length + 1,
                   );
       },
