@@ -37,10 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.6
   bloc:
   flutter_bloc:
-  http:
+  dio:
   equatable:
   stream_transform:
-
+  bloc_concurrency:
 
 dev_dependencies:
   flutter_test:

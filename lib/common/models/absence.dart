@@ -7,13 +7,13 @@ import 'member.dart';
 class Absence extends Equatable {
   final String admitterNote;
   final DateTime? confirmedAt;
-  final DateTime createdAt;
+  final DateTime? createdAt;
   final int crewId;
-  final DateTime endDate;
+  final DateTime? endDate;
   final int id;
   final String memberNote;
   final DateTime? rejectedAt;
-  final DateTime startDate;
+  final DateTime? startDate;
   final AbsenceType type;
   final int userId;
   final Member member;
@@ -64,14 +64,14 @@ class Absence extends Equatable {
 
   factory Absence.fromJson(Map<String, dynamic> json) => Absence(
         admitterNote: json["admitterNote"],
-        confirmedAt: DateTime.parse(json["confirmedAt"]),
-        createdAt: DateTime.parse(json["createdAt"]),
+        confirmedAt: json["confirmedAt"] != null ? DateTime.parse(json["confirmedAt"]) : null,
         crewId: json["crewId"],
-        endDate: DateTime.parse(json["endDate"]),
         id: json["id"],
         memberNote: json["memberNote"],
-        rejectedAt: json["rejectedAt"],
-        startDate: DateTime.parse(json["startDate"]),
+        createdAt: json["createdAt"] != null ? DateTime.parse(json["createdAt"]) : null,
+        endDate: json["endDate"] != null ? DateTime.parse(json["endDate"]) : null,
+        rejectedAt: json["rejectedAt"] != null ? DateTime.parse(json["rejectedAt"]) : null,
+        startDate: json["startDate"] != null ? DateTime.parse(json["startDate"]) : null,
         type: AbsenceType.fromString(json["type"]),
         userId: json["userId"],
         member: Member.fromJson(json["member"]),
