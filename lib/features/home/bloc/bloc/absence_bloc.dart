@@ -49,13 +49,20 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
         ));
       }
       final absences = await _repository.getAbsences(offset: state.absences.length);
-      emit(absences.isEmpty
-          ? state.copyWith(hasReachedMax: true)
-          : state.copyWith(
-              status: AbsenceStateStatus.success,
-              absences: List.of(state.absences)..addAll(absences),
-              hasReachedMax: false,
-            ));
+      emit(
+        absences.isEmpty
+            ? state.copyWith(hasReachedMax: true)
+            : state.copyWith(
+                status: AbsenceStateStatus.success,
+                absences: List.of(state.absences)..addAll(absences),
+                hasReachedMax: false,
+                filteredAbsences: _applyFilter(
+                  state.filterType,
+                  fromDate: state.filterFromDate,
+                  toDate: state.filterToDate,
+                ),
+              ),
+      );
     } catch (e) {
       emit(state.copyWith(status: AbsenceStateStatus.failure));
     }

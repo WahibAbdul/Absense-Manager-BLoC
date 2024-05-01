@@ -36,14 +36,13 @@ class _HomeViewState extends State<HomeView> {
                     padding: const EdgeInsets.all(Dimens.margin),
                     controller: _scrollController,
                     itemBuilder: (context, index) {
-                      if (index >= state.absences.length) {
+                      if (index >= absencesList.length) {
                         return const Center(child: CircularProgressIndicator());
                       }
                       return AbsenceItem(absence: absencesList[index]);
                     },
                     separatorBuilder: (context, index) => const SizedBox(height: Dimens.margin),
-                    itemCount:
-                        state.isFiltersEnabled || state.hasReachedMax ? absencesList.length : absencesList.length + 1,
+                    itemCount: state.hasReachedMax ? absencesList.length : absencesList.length + 1,
                   );
       },
     );
