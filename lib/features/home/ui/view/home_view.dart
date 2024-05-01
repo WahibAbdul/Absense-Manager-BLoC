@@ -1,3 +1,4 @@
+import 'package:absence_mananger/common/constants/dimens.dart';
 import 'package:absence_mananger/features/home/bloc/bloc/absence_bloc.dart';
 import 'package:absence_mananger/features/home/ui/widgets/absence_item.dart';
 import 'package:flutter/material.dart';
@@ -23,21 +24,26 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return BlocBuilder<AbsenceBloc, AbsenceState>(
       builder: (context, state) {
+        final absencesList = state.isFiltersEnabled ? state.filteredAbsences : state.absences;
         return state.status == AbsenceStateStatus.initial
             ? const Center(child: CircularProgressIndicator())
-            : state.status == AbsenceStateStatus.failure && state.absences.isEmpty
-                ? const Center(child: Text("Failed to fetch absences. Please try again."))
+            : absencesList.isEmpty
+                ? Center(
+                    child: Text(state.status == AbsenceStateStatus.failure
+                        ? "Failed to fetch absences. Please try again."
+                        : "No absences found."))
                 : ListView.separated(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(Dimens.margin),
                     controller: _scrollController,
                     itemBuilder: (context, index) {
                       if (index >= state.absences.length) {
                         return const Center(child: CircularProgressIndicator());
                       }
-                      return AbsenceItem(absence: state.absences[index]);
+                      return AbsenceItem(absence: absencesList[index]);
                     },
-                    separatorBuilder: (context, index) => const SizedBox(height: 16),
-                    itemCount: state.hasReachedMax ? state.absences.length : state.absences.length + 1,
+                    separatorBuilder: (context, index) => const SizedBox(height: Dimens.margin),
+                    itemCount:
+                        state.isFiltersEnabled || state.hasReachedMax ? absencesList.length : absencesList.length + 1,
                   );
       },
     );

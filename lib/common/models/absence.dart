@@ -118,15 +118,17 @@ enum AbsenceStatus {
 }
 
 enum AbsenceType {
-  other,
+  none,
   sickness,
   vacation;
+
+  static List<AbsenceType> filterTypes = [AbsenceType.sickness, AbsenceType.vacation];
 
   static AbsenceType fromString(String? type) {
     return switch (type) {
       'sickness' => AbsenceType.sickness,
       'vacation' => AbsenceType.vacation,
-      _ => AbsenceType.other
+      _ => AbsenceType.none
     };
   }
 }
