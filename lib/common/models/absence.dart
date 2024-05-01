@@ -87,6 +87,13 @@ class Absence extends Equatable {
     }
   }
 
+  int get days {
+    if (startDate == null || endDate == null) {
+      return 0;
+    }
+    return endDate!.difference(startDate!).inDays + 1;
+  }
+
   @override
   List<Object?> get props => [
         admitterNote,
