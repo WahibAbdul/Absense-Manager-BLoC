@@ -7,6 +7,7 @@ class AbsenceState extends Equatable {
   const AbsenceState({
     this.status = AbsenceStateStatus.initial,
     this.absences = const <Absence>[],
+    this.totalAbsences = 0,
     this.filteredAbsences = const <Absence>[],
     this.hasReachedMax = false,
     this.filterType = AbsenceType.none,
@@ -16,6 +17,7 @@ class AbsenceState extends Equatable {
 
   final AbsenceStateStatus status;
   final List<Absence> absences;
+  final int totalAbsences;
   final bool hasReachedMax;
   final AbsenceType filterType;
   final DateTime? filterFromDate;
@@ -25,6 +27,7 @@ class AbsenceState extends Equatable {
   AbsenceState copyWith({
     AbsenceStateStatus? status,
     List<Absence>? absences,
+    int? totalAbsences,
     bool? hasReachedMax,
     AbsenceType? filterType,
     DateTime? filterFromDate,
@@ -34,6 +37,7 @@ class AbsenceState extends Equatable {
     return AbsenceState(
       status: status ?? this.status,
       absences: absences ?? this.absences,
+      totalAbsences: totalAbsences ?? this.totalAbsences,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       filterType: filterType ?? this.filterType,
       filterFromDate: filterFromDate ?? this.filterFromDate,
@@ -64,6 +68,7 @@ class AbsenceState extends Equatable {
         absences,
         hasReachedMax,
         filteredAbsences,
+        totalAbsences,
         filterType,
         filterFromDate,
         filterToDate,

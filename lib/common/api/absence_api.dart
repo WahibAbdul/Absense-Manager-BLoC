@@ -1,11 +1,12 @@
 import 'package:absence_mananger/common/networking/api_service.dart';
+import 'package:absence_mananger/common/responses/absence_list_response.dart';
 
 class AbsenceApi {
   final ApiService _apiService;
 
   const AbsenceApi(this._apiService);
 
-  Future<List<dynamic>> getAbsences({
+  Future<AbsenceListResponse> getAbsences({
     int? limit,
     int? offset,
   }) async {
@@ -20,6 +21,6 @@ class AbsenceApi {
       '/getAbsences',
       queryParameters: queryParameters,
     );
-    return (response['data'] as List);
+    return AbsenceListResponse.fromJson(response);
   }
 }

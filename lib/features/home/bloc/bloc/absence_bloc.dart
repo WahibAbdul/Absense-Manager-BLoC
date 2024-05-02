@@ -41,20 +41,21 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
     if (state.hasReachedMax) return Future.value();
     try {
       if (state.status == AbsenceStateStatus.initial) {
-        final absences = await _repository.getAbsences();
+        final data = await _repository.getAbsences();
         return emit(state.copyWith(
           status: AbsenceStateStatus.success,
-          absences: absences,
+          absences: data.$1,
+          totalAbsences: data.$2,
           hasReachedMax: false,
         ));
       }
-      final absences = await _repository.getAbsences(offset: state.absences.length);
+      final data = await _repository.getAbsences(offset: state.absences.length);
       emit(
-        absences.isEmpty
+        data.$1.isEmpty
             ? state.copyWith(hasReachedMax: true)
             : state.copyWith(
                 status: AbsenceStateStatus.success,
-                absences: List.of(state.absences)..addAll(absences),
+                absences: List.of(state.absences)..addAll(data.$1),
                 hasReachedMax: false,
                 filteredAbsences: _applyFilter(
                   state.filterType,
