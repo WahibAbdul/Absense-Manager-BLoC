@@ -11,6 +11,9 @@ class TypeFilterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Using the context.select method to get the filterType from the AbsenceBloc and rebuild the widget when the values change to avoid unnecessary rebuilds.
+    final selectedType = context.select((AbsenceBloc bloc) => bloc.state.filterType);
+
     final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,30 +23,26 @@ class TypeFilterView extends StatelessWidget {
           style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         Spacing.vMedium,
-        BlocBuilder<AbsenceBloc, AbsenceState>(
-          builder: (context, state) {
-            return Wrap(
-              spacing: Dimens.marginMedium,
-              children: [
-                ChoiceChip(
-                  label: const Text('All'),
-                  selected: state.filterType == AbsenceType.none,
-                  onSelected: (value) {
-                    context.read<AbsenceBloc>().add(const AbsenceFilterTypeChanged(filterType: AbsenceType.none));
-                  },
-                ),
-                for (final type in AbsenceType.filterTypes)
-                  ChoiceChip(
-                    label: Text(type.name.capitalized()),
-                    selected: state.filterType == type,
-                    onSelected: (value) {
-                      context.read<AbsenceBloc>().add(AbsenceFilterTypeChanged(filterType: type));
-                    },
-                  )
-              ],
-            );
-          },
-        )
+        Wrap(
+          spacing: Dimens.marginMedium,
+          children: [
+            ChoiceChip(
+              label: const Text('All'),
+              selected: selectedType == AbsenceType.none,
+              onSelected: (value) {
+                context.read<AbsenceBloc>().add(const AbsenceFilterTypeChanged(filterType: AbsenceType.none));
+              },
+            ),
+            for (final type in AbsenceType.filterTypes)
+              ChoiceChip(
+                label: Text(type.name.capitalized()),
+                selected: selectedType == type,
+                onSelected: (value) {
+                  context.read<AbsenceBloc>().add(AbsenceFilterTypeChanged(filterType: type));
+                },
+              )
+          ],
+        ),
       ],
     );
   }

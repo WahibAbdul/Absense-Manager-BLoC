@@ -8,11 +8,14 @@ class DateFilterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Using the context.select method to get the filterFromDate and filterToDate from the AbsenceBloc and rebuild the widget when the values change to avoid unnecessary rebuilds.
     final fromDate = context.select((AbsenceBloc bloc) => bloc.state.filterFromDate);
     final toDate = context.select((AbsenceBloc bloc) => bloc.state.filterToDate);
+
     final text = fromDate != null && toDate != null
         ? '${DateUtil.getFormattedDate(fromDate, 'dd/MM/yyyy')} - ${DateUtil.getFormattedDate(toDate, 'dd/MM/yyyy')}'
         : 'Select Date Range';
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

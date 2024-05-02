@@ -11,6 +11,7 @@ class AbsenceTotalCountView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Using the context.select method to get the totalAbsences from the AbsenceBloc and rebuild the widget when the values change to avoid unnecessary rebuilds.
     final totalAbsences = context.select((AbsenceBloc bloc) => bloc.state.totalAbsences);
     return Text(
       totalAbsences == 0 ? placeholder : 'Total: $totalAbsences',

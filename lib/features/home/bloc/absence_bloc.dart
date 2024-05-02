@@ -11,6 +11,7 @@ part 'absence_state.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
 
+// A transformer that throttles the events and drops the ones that are emitted while the previous event is still being processed.
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
   return (events, mapper) {
     return droppable<E>().call(events.throttle(duration), mapper);
@@ -37,6 +38,7 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
 
   final AbsenceRepository _repository;
 
+  // This method is used to fetch the absences from the server
   Future<void> _onAbsencesFetched(AbsenceEvent event, Emitter<AbsenceState> emit) async {
     if (state.hasReachedMax) return Future.value();
     try {
@@ -69,6 +71,7 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
     }
   }
 
+  // This method is used to filter the absences by type
   Future<void> _onAbsencesTypeFiltered(AbsenceFilterTypeChanged event, Emitter<AbsenceState> emit) async {
     emit(state.copyWith(
       filterType: event.filterType,
@@ -80,6 +83,7 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
     ));
   }
 
+  // This method is used to filter the absences by date
   Future<void> _onAbsencesDateFiltered(AbsenceFilterDateChanged event, Emitter<AbsenceState> emit) async {
     emit(state.copyWith(
       filterFromDate: event.filterFromDate,
@@ -92,10 +96,12 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
     ));
   }
 
+  // This method is used to reset the filters
   Future<void> _onAbsencesFilterReset(AbsenceFilterReset event, Emitter<AbsenceState> emit) async {
     emit(state.resetFilters());
   }
 
+  // This method is used to apply the filters
   List<Absence> _applyFilter(AbsenceType type, {DateTime? fromDate, DateTime? toDate}) {
     List<Absence> filtered = List.from(state.absences);
 
