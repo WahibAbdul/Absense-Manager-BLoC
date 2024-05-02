@@ -51,6 +51,7 @@ class AbsenceState extends Equatable {
       status: status,
       absences: absences,
       hasReachedMax: hasReachedMax,
+      totalAbsences: totalAbsences,
       filterType: AbsenceType.none,
       filterFromDate: null,
       filterToDate: null,
