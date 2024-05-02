@@ -3,7 +3,7 @@ import 'package:absence_mananger/common/constants/constants.dart';
 
 import 'package:absence_mananger/common/networking/api_service.dart';
 import 'package:absence_mananger/common/repositories/absence_repository.dart';
-import 'package:absence_mananger/features/home/bloc/bloc/absence_bloc.dart';
+import 'package:absence_mananger/features/home/bloc/absence_bloc.dart';
 import 'package:absence_mananger/features/home/ui/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

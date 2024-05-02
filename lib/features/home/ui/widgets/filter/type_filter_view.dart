@@ -2,7 +2,7 @@ import 'package:absence_mananger/common/constants/dimens.dart';
 import 'package:absence_mananger/common/constants/spacing.dart';
 import 'package:absence_mananger/common/extensions/string_extension.dart';
 import 'package:absence_mananger/common/models/absence.dart';
-import 'package:absence_mananger/features/home/bloc/bloc/absence_bloc.dart';
+import 'package:absence_mananger/features/home/bloc/absence_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

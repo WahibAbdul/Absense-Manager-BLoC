@@ -1,5 +1,5 @@
-import 'package:absence_mananger/features/home/ui/widgets/absence_total_count_view.dart';
-import 'package:absence_mananger/features/home/ui/widgets/list_filter_icon_button.dart';
+import 'package:absence_mananger/features/home/ui/widgets/absences-list/absence_total_count_view.dart';
+import 'package:absence_mananger/features/home/ui/widgets/filter/list_filter_icon_button.dart';
 import 'package:flutter/material.dart';
 
 import 'home_view.dart';

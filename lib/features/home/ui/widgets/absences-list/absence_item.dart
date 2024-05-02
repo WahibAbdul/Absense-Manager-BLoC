@@ -2,8 +2,8 @@ import 'package:absence_mananger/common/constants/spacing.dart';
 import 'package:absence_mananger/common/extensions/string_extension.dart';
 import 'package:absence_mananger/common/models/absence.dart';
 import 'package:absence_mananger/common/utils/date_utils.dart';
-import 'package:absence_mananger/features/home/ui/widgets/absence_note_view.dart';
-import 'package:absence_mananger/features/home/ui/widgets/absence_status_view.dart';
+import 'package:absence_mananger/features/home/ui/widgets/absences-list/absence_note_view.dart';
+import 'package:absence_mananger/features/home/ui/widgets/absences-list/absence_status_view.dart';
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/material.dart';
 
