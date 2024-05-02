@@ -68,13 +68,30 @@ class AbsenceItem extends StatelessWidget {
             ),
           ],
           Spacing.vertical,
-          ElevatedButton.icon(
-              onPressed: _saveToCalendar,
-              label: const Text('Share'),
-              icon: const Icon(
-                Icons.ios_share_outlined,
-                size: 20,
-              ))
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton.icon(
+                  onPressed: _saveToCalendar,
+                  label: const Text('Share'),
+                  icon: const Icon(
+                    Icons.ios_share_outlined,
+                    size: 20,
+                  )),
+              if (absence.member.image != null)
+                ClipOval(
+                  child: SizedBox.square(
+                    dimension: 40,
+                    child: Image.network(
+                      absence.member.image!,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+            ],
+          )
         ],
       ),
     );
