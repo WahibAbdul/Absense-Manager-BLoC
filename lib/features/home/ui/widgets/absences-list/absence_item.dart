@@ -71,13 +71,16 @@ class AbsenceItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton.icon(
-                  onPressed: _saveToCalendar,
-                  label: const Text('Share'),
-                  icon: const Icon(
-                    Icons.ios_share_outlined,
-                    size: 20,
-                  )),
+              if (absence.startDate != null && absence.endDate != null)
+                ElevatedButton.icon(
+                    onPressed: _saveToCalendar,
+                    label: const Text('Share'),
+                    icon: const Icon(
+                      Icons.ios_share_outlined,
+                      size: 20,
+                    ))
+              else
+                const SizedBox.shrink(),
               if (absence.member.image != null)
                 ClipOval(
                   child: SizedBox.square(
@@ -98,6 +101,8 @@ class AbsenceItem extends StatelessWidget {
   }
 
   void _saveToCalendar() {
+    if (absence.startDate == null || absence.endDate == null) return;
+
     final description = StringBuffer();
     description.writeln('Type: ${absence.type.name.capitalized()}');
     description.writeln();
@@ -113,7 +118,7 @@ class AbsenceItem extends StatelessWidget {
       title: '${absence.member.name} - ${absence.status.name.capitalized()}',
       description: description.toString(),
       startDate: absence.startDate!,
-      endDate: absence.startDate!,
+      endDate: absence.endDate!,
     );
 
     Add2Calendar.addEvent2Cal(event);
