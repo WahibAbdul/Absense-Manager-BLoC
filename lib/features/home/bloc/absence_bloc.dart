@@ -46,7 +46,7 @@ class AbsenceBloc extends Bloc<AbsenceEvent, AbsenceState> {
           status: AbsenceStateStatus.success,
           absences: data.$1,
           totalAbsences: data.$2,
-          hasReachedMax: false,
+          hasReachedMax: data.$1.isEmpty,
         ));
       }
       final data = await _repository.getAbsences(offset: state.absences.length);
