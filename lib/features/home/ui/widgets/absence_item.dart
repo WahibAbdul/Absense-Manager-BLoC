@@ -1,8 +1,10 @@
+import 'package:absence_mananger/common/constants/spacing.dart';
 import 'package:absence_mananger/common/extensions/string_extension.dart';
 import 'package:absence_mananger/common/models/absence.dart';
 import 'package:absence_mananger/common/utils/date_utils.dart';
 import 'package:absence_mananger/features/home/ui/widgets/absence_note_view.dart';
 import 'package:absence_mananger/features/home/ui/widgets/absence_status_view.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/material.dart';
 
 class AbsenceItem extends StatelessWidget {
@@ -65,8 +67,38 @@ class AbsenceItem extends StatelessWidget {
               body: absence.admitterNote,
             ),
           ],
+          Spacing.vertical,
+          ElevatedButton.icon(
+              onPressed: _saveToCalendar,
+              label: const Text('Share'),
+              icon: const Icon(
+                Icons.ios_share_outlined,
+                size: 20,
+              ))
         ],
       ),
     );
+  }
+
+  void _saveToCalendar() {
+    final description = StringBuffer();
+    description.writeln('Type: ${absence.type.name.capitalized()}');
+    description.writeln();
+    if (absence.memberNote.isNotEmpty) {
+      description.writeln('Member Note:\n${absence.memberNote}');
+    }
+    description.writeln();
+    if (absence.admitterNote.isNotEmpty) {
+      description.writeln('Admitter Note:\n${absence.admitterNote}');
+    }
+
+    final Event event = Event(
+      title: '${absence.member.name} - ${absence.status.name.capitalized()}',
+      description: description.toString(),
+      startDate: absence.startDate!,
+      endDate: absence.startDate!,
+    );
+
+    Add2Calendar.addEvent2Cal(event);
   }
 }

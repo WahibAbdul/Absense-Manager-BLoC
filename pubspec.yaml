@@ -42,6 +42,8 @@ dependencies:
   equatable:
   stream_transform:
   bloc_concurrency:
+  add_2_calendar: ^2.1.2
+  
 
 dev_dependencies:
   flutter_test:
