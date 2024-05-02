@@ -1,5 +1,5 @@
 import 'package:absence_mananger/features/home/ui/widgets/absence_total_count_view.dart';
-import 'package:absence_mananger/features/home/ui/widgets/list_filter_button.dart';
+import 'package:absence_mananger/features/home/ui/widgets/list_filter_icon_button.dart';
 import 'package:flutter/material.dart';
 
 import 'home_view.dart';
@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
         title: const AbsenceTotalCountView(placeholder: 'Absence Manager'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: const [
-          ListFilterButton(),
+          ListFilterIconButton(),
         ],
       ),
       body: const HomeView(),

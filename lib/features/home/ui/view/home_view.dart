@@ -1,24 +1,10 @@
-import 'package:absence_mananger/common/constants/dimens.dart';
 import 'package:absence_mananger/features/home/bloc/bloc/absence_bloc.dart';
-import 'package:absence_mananger/features/home/ui/widgets/absence_item.dart';
+import 'package:absence_mananger/features/home/ui/widgets/absences_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  final _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_onScroll);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,32 +18,11 @@ class _HomeViewState extends State<HomeView> {
                     child: Text(state.status == AbsenceStateStatus.failure
                         ? "Failed to fetch absences. Please try again."
                         : "No absences found."))
-                : ListView.separated(
-                    padding: const EdgeInsets.all(Dimens.margin),
-                    controller: _scrollController,
-                    itemBuilder: (context, index) {
-                      if (index >= absencesList.length) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return AbsenceItem(absence: absencesList[index]);
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(height: Dimens.margin),
-                    itemCount: state.hasReachedMax ? absencesList.length : absencesList.length + 1,
+                : AbsencesList(
+                    absences: absencesList,
+                    canLoadMore: state.isFiltersEnabled ? false : !state.hasReachedMax,
                   );
       },
     );
-  }
-
-  void _onScroll() {
-    if (_isBottom) {
-      context.read<AbsenceBloc>().add(AbsenceFetched());
-    }
-  }
-
-  bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.9);
   }
 }
